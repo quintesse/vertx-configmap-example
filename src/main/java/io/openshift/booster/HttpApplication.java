@@ -28,7 +28,7 @@ public class HttpApplication extends AbstractVerticle {
 
     @Override
     public void start() {
-        setUpConfiguration();
+        conf = ConfigRetriever.create(vertx);
 
         Router router = Router.router(vertx);
         router.get("/api/greeting").handler(this::greeting);
@@ -98,17 +98,5 @@ public class HttpApplication extends AbstractVerticle {
                 .map(json -> json.getString("message"))
                 .otherwise(t -> null)));
         return future;
-    }
-
-    private void setUpConfiguration() {
-        ConfigStoreOptions appStore = new ConfigStoreOptions();
-        appStore.setType("configmap")
-            .setFormat("yaml")
-            .setConfig(new JsonObject()
-                .put("name", "app-config")
-                .put("key", "app-config.yml"));
-
-        conf = ConfigRetriever.create(vertx, new ConfigRetrieverOptions()
-            .addStore(appStore));
     }
 }
