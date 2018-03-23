@@ -32,7 +32,17 @@
             <pre><code id="greeting-result">Invoke the service to see the result.</code></pre>
 
             <p class="lead">
-                Once you have invoked the <em>greeting</em> service, you can reconfigure it:
+                If you didn't create the config map yet:
+            </p>
+            <ol>
+                <li>Run <code>oc create configmap app-config --from-file=app-config.yml</code></li>
+                <li>The propagation may take some time depending on your OpenShift Cluster configuration</li>
+            </ol>
+
+            <hr style="border-top: 1px solid #ccc"/>
+
+            <p class="lead">
+                Once you have invoked the <em>greeting</em> service with a config map, you can reconfigure it:
             </p>
             <ol>
                 <li>Run <code>oc edit configmap app-config</code></li>
