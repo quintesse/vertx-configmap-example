@@ -1,8 +1,6 @@
 package io.openshift.booster;
 
 import io.vertx.config.ConfigRetriever;
-import io.vertx.config.ConfigRetrieverOptions;
-import io.vertx.config.ConfigStoreOptions;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Future;
 import io.vertx.core.json.JsonObject;
@@ -41,7 +39,7 @@ public class HttpApplication extends AbstractVerticle {
                 message = ar.result();
                 vertx
                     .createHttpServer()
-                    .requestHandler(router::accept)
+                    .requestHandler(router)
                     .listen(
                         // Retrieve the port from the configuration,
                         // default to 8080.
