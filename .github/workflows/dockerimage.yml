@@ -1,7 +1,13 @@
 name: Docker Image CI
 
-on: [push]
-
+on:
+  push:
+    branches: 
+      - master
+  schedule:
+    # Weekly on Sundays at 02:00
+    - cron: '0 2 * * 0'
+      
 jobs:
 
   build:
@@ -18,3 +24,6 @@ jobs:
         name: quintesse/vertx-configmap-example/vertx-configmap-example
         username: quintesse
         password: ${{ secrets.GITHUB_TOKEN }}
+        snapshot: true
+        # Cache everything except scheduled builds
+        cache: github.event_name != 'schedule'
