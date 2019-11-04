@@ -10,5 +10,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag vertx-configmap-example:${{ github.sha }}
+    - name: Build and Publish
+      uses: elgohr/Publish-Docker-Github-Action@master
+      with:
+        name: vertx-configmap-example
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
