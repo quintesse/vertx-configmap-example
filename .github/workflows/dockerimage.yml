@@ -21,7 +21,8 @@ jobs:
     - name: Push image to GPR
       if: success()
       run: |
-        docker login docker.pkg.github.com -u ${{ github.actor }} -p "${GITHUB_TOKEN}"
+        echo "SHORTSHA=${SHORTSHA}"
+        echo "${GITHUB_TOKEN}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
         docker push docker.pkg.github.com/quintesse/vertx-configmap-example/vertx-configmap-example:${SHORTSHA}
         docker push docker.pkg.github.com/quintesse/vertx-configmap-example/vertx-configmap-example:latest
       env:
