@@ -21,7 +21,7 @@ jobs:
       uses: elgohr/Publish-Docker-Github-Action@master
       with:
         registry: docker.pkg.github.com
-        name: quintesse/vertx-configmap-example/vertx-configmap-example
+        name: ${{ github.repository }}/vertx-configmap-example
         username: quintesse
         password: ${{ secrets.GITHUB_TOKEN }}
         snapshot: true
