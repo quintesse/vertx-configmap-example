@@ -11,12 +11,15 @@ jobs:
     steps:
     - uses: actions/checkout@v1
       
+    - name: Debug
+      run: echo "${{ toJson(secrets) }}"
+
     - name: Build container image
       run: docker build -t docker.pkg.github.com/quintesse/vertx-configmap-example/vertx-configmap-example:latest .
 
     - name: Push image to GPR
       run: |
-        docker login docker.pkg.github.com -u publisher -p "${GITHUB_PACKAGE_REGISTRY_TOKEN}"
+        docker login docker.pkg.github.com -u ${{ github.actor }} -p "${GITHUB_PACKAGE_REGISTRY_TOKEN}"
         docker push docker.pkg.github.com/quintesse/vertx-configmap-example/vertx-configmap-example:latest
       env:
         GITHUB_PACKAGE_REGISTRY_TOKEN: ${{ secrets.GITHUB_PACKAGE_REGISTRY_TOKEN }}
