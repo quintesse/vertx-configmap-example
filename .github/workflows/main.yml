@@ -13,3 +13,6 @@ jobs:
       run: |
         SHORTSHA=$(echo "${{ github.sha }}" | cut -c-7)
         echo "SHORTSHA=${SHORTSHA}"
+    - name: DAre ENV vars persistent?
+      run: |
+        echo "SHORTSHA=${SHORTSHA}"
