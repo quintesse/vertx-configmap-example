@@ -16,12 +16,11 @@ jobs:
         SHORTSHA=$(echo "${{ github.sha }}" | cut -c-7)
         docker build -t docker.pkg.github.com/quintesse/vertx-configmap-example/vertx-configmap-example:${SHORTSHA} .
         docker tag docker.pkg.github.com/quintesse/vertx-configmap-example/vertx-configmap-example:${SHORTSHA} docker.pkg.github.com/quintesse/vertx-configmap-example/vertx-configmap-example:latest
-        echo "::set-env SHORTSHA=${SHORTSHA}"
+        echo "::set-env name=SHORTSHA::${SHORTSHA}"
 
     - name: Push image to GPR
       if: success()
       run: |
-        echo "SHORTSHA=${SHORTSHA}"
         echo "${GITHUB_TOKEN}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
         docker push docker.pkg.github.com/quintesse/vertx-configmap-example/vertx-configmap-example:${SHORTSHA}
         docker push docker.pkg.github.com/quintesse/vertx-configmap-example/vertx-configmap-example:latest
